@@ -32,6 +32,11 @@ RESPONSE_FINISH_REASONS = 'gen_ai.response.finish_reasons'
 INPUT_TOKENS = 'gen_ai.usage.input_tokens'
 OUTPUT_TOKENS = 'gen_ai.usage.output_tokens'
 
+# Detailed token usage (for providers that support granular token reporting)
+INPUT_TOKENS_CACHED = 'gen_ai.usage.input_tokens.cached'
+OUTPUT_TOKENS_REASONING = 'gen_ai.usage.output_tokens.reasoning'
+OUTPUT_TOKENS_COMPLETION = 'gen_ai.usage.output_tokens.completion'
+
 # Message content
 INPUT_MESSAGES = 'gen_ai.input.messages'
 OUTPUT_MESSAGES = 'gen_ai.output.messages'

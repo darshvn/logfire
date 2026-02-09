@@ -20,8 +20,11 @@ from logfire import LogfireSpan
 from ...utils import handle_internal_errors, log_internal_error
 from .semconv import (
     INPUT_TOKENS,
+    INPUT_TOKENS_CACHED,
     OPERATION_NAME,
     OUTPUT_TOKENS,
+    OUTPUT_TOKENS_COMPLETION,
+    OUTPUT_TOKENS_REASONING,
     PROVIDER_NAME,
     REQUEST_FREQUENCY_PENALTY,
     REQUEST_MAX_TOKENS,
@@ -302,6 +305,15 @@ def on_response(response: ResponseT, span: LogfireSpan) -> ResponseT:
         span.set_attribute(INPUT_TOKENS, input_tokens)
     if isinstance(output_tokens, int):
         span.set_attribute(OUTPUT_TOKENS, output_tokens)
+
+    # Extract detailed token usage when available
+    cached_tokens = getattr(usage, 'prompt_tokens_details', {}).get('cached_tokens') if usage else None
+    if isinstance(cached_tokens, int) and cached_tokens > 0:
+        span.set_attribute(INPUT_TOKENS_CACHED, cached_tokens)
+
+    reasoning_tokens = getattr(usage, 'completion_tokens_details', {}).get('reasoning_tokens') if usage else None
+    if isinstance(reasoning_tokens, int) and reasoning_tokens > 0:
+        span.set_attribute(OUTPUT_TOKENS_REASONING, reasoning_tokens)
 
     if isinstance(response, ChatCompletion) and response.choices:
         # Keep response_data for backward compatibility
