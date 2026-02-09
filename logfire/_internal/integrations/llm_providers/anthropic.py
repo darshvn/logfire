@@ -79,7 +79,7 @@ def get_endpoint_config(options: FinalRequestOptions) -> EndpointConfig:
         _extract_request_parameters(json_data, span_data)
 
         return EndpointConfig(
-            message_template='Message with {request_data[model]!r}',
+            message_template='{gen_ai.operation.name} {gen_ai.request.model}',
             span_data=span_data,
             stream_state_cls=AnthropicMessageStreamState,
         )
