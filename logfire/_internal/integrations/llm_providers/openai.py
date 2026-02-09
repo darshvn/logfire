@@ -106,7 +106,7 @@ def get_endpoint_config(options: FinalRequestOptions) -> EndpointConfig:
         _extract_request_parameters(json_data, span_data)
 
         return EndpointConfig(
-            message_template='Chat Completion with {request_data[model]!r}',
+            message_template='{gen_ai.operation.name} {gen_ai.request.model}',
             span_data=span_data,
             stream_state_cls=OpenaiChatCompletionStreamState,
         )
@@ -128,7 +128,7 @@ def get_endpoint_config(options: FinalRequestOptions) -> EndpointConfig:
         _extract_request_parameters(json_data, span_data)
 
         return EndpointConfig(
-            message_template='Responses API with {gen_ai.request.model!r}',
+            message_template='{gen_ai.operation.name} {gen_ai.request.model}',
             span_data=span_data,
             stream_state_cls=OpenaiResponsesStreamState,
         )
@@ -141,7 +141,7 @@ def get_endpoint_config(options: FinalRequestOptions) -> EndpointConfig:
         }
         _extract_request_parameters(json_data, span_data)
         return EndpointConfig(
-            message_template='Completion with {request_data[model]!r}',
+            message_template='{gen_ai.operation.name} {gen_ai.request.model}',
             span_data=span_data,
             stream_state_cls=OpenaiCompletionStreamState,
         )
@@ -154,7 +154,7 @@ def get_endpoint_config(options: FinalRequestOptions) -> EndpointConfig:
         }
         _extract_request_parameters(json_data, span_data)
         return EndpointConfig(
-            message_template='Embedding Creation with {request_data[model]!r}',
+            message_template='{gen_ai.operation.name} {gen_ai.request.model}',
             span_data=span_data,
         )
     elif url == '/images/generations':
@@ -166,7 +166,7 @@ def get_endpoint_config(options: FinalRequestOptions) -> EndpointConfig:
         }
         _extract_request_parameters(json_data, span_data)
         return EndpointConfig(
-            message_template='Image Generation with {request_data[model]!r}',
+            message_template='{gen_ai.operation.name} {gen_ai.request.model}',
             span_data=span_data,
         )
     else:
